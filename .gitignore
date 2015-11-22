@@ -1,0 +1,4 @@
+# For not committing compiled python binaries
+__pycache__
+# Ignore hidden files (uncomment if any hidden files are necessary)
+.*
