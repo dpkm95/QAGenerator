@@ -63,7 +63,7 @@ def get_action(tree):
 	adv = []
 	adj = []
 	prep = []
-	for subtree in tree[1].subtrees():
+	for subtree in tree[1]:
 		if subtree.label() in verb_tags:
 			if subtree[0] == 'was':
 				action['name'] = 'is'
@@ -79,7 +79,8 @@ def get_action(tree):
 				if st.label() in adverb_tags:
 					adv.append({'name':st[0],'tag':st.label()})
 		elif subtree.label() == 'NP':
-			new_prep = {'name':subtree[0][0]}
+			# new_prep = {'name':subtree[0][0]}
+			new_prep = {'name':""}
 			new_prep['actee'] = get_actor(subtree)
 			prep.append(new_prep)
 		elif subtree.label() == 'PP':
@@ -115,7 +116,7 @@ def find_subject_object_predicate(input_line):
 # The Woodsman threw the big bad wolf in the river.
 # Little Red Riding Hood thanked the Woodsman.
 input_line = '''
-	Little Red Riding Hood thanked the Woodsman.
+	The Woodsman killed the big bad wolf.
 '''
 sop = find_subject_object_predicate(input_line)
 print(json.dumps(sop))
