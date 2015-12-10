@@ -12,9 +12,9 @@ from nltk.stem.snowball import SnowballStemmer
 # os.environ['JAVAHOME'] =  os.getcwd()+'/java'
 
 # #set parser environment variables
-# os.environ['STANFORD_PARSER'] = os.getcwd() + '/stanford-parser.jar'
-# os.environ['STANFORD_MODELS'] = os.getcwd() + '/stanford-parser-3.5.2-models.jar'
-# parser = StanfordParser(model_path = os.getcwd()+'/englishPCFG.ser')
+#os.environ['STANFORD_PARSER'] = os.getcwd() + '/stanford-parser.jar'
+#os.environ['STANFORD_MODELS'] = os.getcwd() + '/stanford-parser-3.5.2-models.jar'
+#parser = StanfordParser(model_path = os.getcwd()+'/englishFactored.ser.gz')
 
 #windows version
 os.environ['JAVAHOME'] =  os.getcwd()+'\\java.exe'
@@ -115,8 +115,6 @@ def find_subject_object_predicate(input_line):
 # The Woodsman killed the big bad wolf.
 # The Woodsman threw the big bad wolf in the river.
 # Little Red Riding Hood thanked the Woodsman.
-input_line = '''
-	The Woodsman killed the big bad wolf.
-'''
+input_line = raw_input()
 sop = find_subject_object_predicate(input_line)
 print(json.dumps(sop))

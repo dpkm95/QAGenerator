@@ -25,3 +25,10 @@ def get_qualified_noun_name(entity):
     elif gh.is_verb(entity):
         name = "the " + get_name(entity)
     return name
+
+def get_appropriate_interrogative_for_noun(noun_entity, is_actor):
+    if not gh.is_noun(noun_entity): raise AssertionError("Expected noun!")
+    if gh.is_proper_noun(noun_entity):
+        return "who" if is_actor else "whom"
+    else:
+        return "what"

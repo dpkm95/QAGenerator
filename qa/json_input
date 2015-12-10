@@ -1,0 +1,2 @@
+{"actor": {"action": {"adv": [], "tag": "VBZ", "adj": [], "name": "is", "prep": [{"actee": {"tag": "NN", "adj": [], "name": ["color"]}, "name": ""}]}, "tag": "NNP", "adj": [], "name": ["Yellow"]}}
+{"actor": {"action": {"adv": [], "tag": "VBZ", "adj": [], "name": "is", "prep": [{"actee": {"tag": "NN", "adj": [], "name": ["color"]}, "name": ""}]}, "tag": "NNP", "adj": [], "name": ["Brown"]}}

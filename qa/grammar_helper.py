@@ -1,5 +1,5 @@
-from definitions import *
 from db_helper import *
+
 
 def is_proper_noun(entity):
     return entity[KEY_TAG] == TAG_NNP or entity[KEY_TAG] == TAG_NNPS

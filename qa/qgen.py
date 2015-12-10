@@ -48,12 +48,12 @@ def gen_attr_question(entity):
     done_attrs = []
     attrs = get_attrs(entity)
     for attr in attrs:
-        super_type = get_super_type(attr)
+        super_type = get_super_type_resolved(attr)
         if not super_type is None and attr not in done_attrs: # this will need to be changed when we support multiple types, since we can revisit done attrs for different super classes
             done_attrs.append(attr)
             common_attrs = [attr]
             for j in [DbHelper.resolve(_) for _ in set(map(get_id, attrs)) - set(map(get_id, done_attrs))]:
-                if get_super_type(j) == super_type:
+                if get_super_type_resolved(j) == super_type:
                     done_attrs.append(j)
                     common_attrs.append(j)
 
@@ -64,7 +64,7 @@ def gen_attr_question(entity):
 
 def gen_type_question(entity): # questions based on the type (superclass) of an entity, if possible
     ql = []
-    super_type = get_super_type(entity)
+    super_type = get_super_type_resolved(entity)
     if not super_type is None:
         q = "What is " + sb.get_qualified_noun_name(entity) + "?"
         a = get_name(entity) + " is a " + get_name(super_type) + "."
@@ -72,9 +72,25 @@ def gen_type_question(entity): # questions based on the type (superclass) of an 
         ql.append([q,a,points])
     return ql
 
+
+def gen_action_q_xpp(action):
+    # Who did action to actee?
+    ql = []
+
+
+    return ql
+
+
+def gen_action_question(entity):
+    ql = []
+    actions = get_actions_by(entity)
+    return ql
+
+
 def gen_all_questions(entity):
     ql = gen_attr_question(entity)
     ql.extend(gen_type_question(entity))
+    ql.extend(gen_action_question(entity))
     for i in ql:
         i[0] = i[0].capitalize()
         i[1] = i[1].capitalize()
