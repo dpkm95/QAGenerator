@@ -5,7 +5,7 @@ KEY_NAME = "name"
 KEY_TYPE = "type"
 KEY_CLASS = "class"
 KEY_ACTORS = "actors"
-KEY_ACTEES = "actees"
+KEY_ACTEES = "actee"
 KEY_PREP = "prep"
 KEY_ACTIONS = "actions"
 

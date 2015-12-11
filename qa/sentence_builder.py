@@ -19,12 +19,13 @@ def get_possessive(name): # assumes proper noun since common nouns are not allow
 def get_qualified_noun_name(entity):
     name= ''
     if gh.is_noun(entity):
-        name = get_name(entity) if gh.is_proper_noun(entity) else "the " + get_name(entity)
+        name = get_name(entity).title() if gh.is_proper_noun(entity) else "the " + get_name(entity)
     elif gh.is_adjective(entity):
         name = gh.get_abstract_noun_adj(entity)
     elif gh.is_verb(entity):
         name = "the " + get_name(entity)
     return name
+
 
 def get_appropriate_interrogative_for_noun(noun_entity, is_actor):
     if not gh.is_noun(noun_entity): raise AssertionError("Expected noun!")
@@ -32,3 +33,16 @@ def get_appropriate_interrogative_for_noun(noun_entity, is_actor):
         return "who" if is_actor else "whom"
     else:
         return "what"
+
+
+# def get_prepositional_phrase(prep_name, )
+
+def get_fully_qualified_descriptive_name_with_marks(entity_noun):
+    if gh.is_proper_noun(entity_noun):
+        return get_qualified_noun_name(entity_noun), 1
+    else:
+        attrs = get_attrs_resolved(entity_noun)
+        if len(attrs) == 0:
+            return get_qualified_noun_name(entity_noun), 1
+        else:
+            return "the " + combine_with_comma_and(map(get_name, attrs)) + " " + get_name(entity_noun), len(attrs) + 1

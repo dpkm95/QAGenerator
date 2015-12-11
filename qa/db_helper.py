@@ -80,12 +80,12 @@ class DbHelper():
             DbHelper.create_set_own_type(entity)
             return entity
         else:
-            existing_attrs = get_attrs(existing_entities[0])
+            existing_attrs = get_attrs_resolved(existing_entities[0])
             new_attrs = []
             for attr in entity[KEY_ATTR]:
-                if attr[KEY_NAME] not in list(map(lambda x: get_name(DbHelper.resolve(x)), existing_attrs)):
+                if attr[KEY_NAME] not in list(map(get_name, existing_attrs)):
                     new_attrs.append(attr)
-            existing_attrs.extend(DbHelper.insert_attrs(new_attrs))
+            add_to_attrs(existing_entities[0], DbHelper.insert_attrs(new_attrs))
             return existing_entities[0]
 
     @staticmethod
@@ -136,12 +136,32 @@ def get_instance_entities_with(key, value):
     return [i for i in DbHelper.entities if i[key] == value and not is_class(i)]
 
 
+def get_all_actions_resolved():
+    return [i for i in DbHelper.entities if ugh.is_verb(get_tag(i))]
+
 def get_actions_by(actor_entity):
     return [i for i in DbHelper.entities if ugh.is_verb(i) and get_id(actor_entity) in get_actors(i)]
 
 
 def get_actors(action_entity):
     return action_entity[KEY_ACTORS]
+
+
+def get_actees(prep):
+    return prep[KEY_ACTEES]
+
+
+def get_actees_resolved(prep):
+    return [DbHelper.resolve(i) for i in get_actees(prep)]
+
+
+def get_actors_resolved(action_entity):
+    return [DbHelper.resolve(i) for i in get_actors(action_entity)]
+
+
+def get_preps(action_entity):
+    return action_entity[KEY_PREP]
+
 
 def get_class(entity):
     type = get_type(entity)
@@ -192,6 +212,10 @@ def get_super_type_resolved(entity):
 
 
 def get_attrs(entity):
+    return [] if KEY_ATTR not in entity else entity[KEY_ATTR]
+
+
+def get_attrs_resolved(entity):
     return _get_entities_in(entity, KEY_ATTR)
 
 
@@ -214,3 +238,9 @@ def set_id(entity, id):
 def add_super_type(entity, super_type):
     if not is_class(super_type): raise AssertionError("Super type must be a type!")
     set_type(get_type_resolved(entity), super_type[KEY_ID])
+
+
+def add_to_attrs(entity, attr_ids):
+    old_attrs = get_attrs(entity)
+    old_attrs.extend(attr_ids)
+    entity[KEY_ATTR] = old_attrs

@@ -5,10 +5,11 @@ import grammar_helper as gh
 
 
 def show_qs():
-    qset = set()
+    qset = list()
     for i in [i for i in DbHelper.entities if not (is_class(i) and gh.is_proper_noun(i))]:
         for j in qgen.gen_all_questions(i):
-            qset.add(tuple(j))
+            if tuple(j) not in qset:
+                qset.append(tuple(j))
 
     for q, a, marks in qset:
         print("Q.", q)

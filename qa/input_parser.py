@@ -96,14 +96,10 @@ def parse_input():
         base = json.loads(i)
         insert_into_db(base)
 
-    for i in DbHelper.entities:
-        print(i)
+    #for i in DbHelper.entities:
+    #   print(i)
 
     gen.show_qs()
-
-    # print(DbHelper.entities)
-    # print(qgen.gen_all_questions(actor))
-    # print(qgen.gen_all_questions(action))
 
 if __name__ == "__main__":
     parse_input()
